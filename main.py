@@ -37,3 +37,12 @@ print(pd.DataFrame(A, index=sectors, columns=sectors).round(2)) # dataframe for 
 # 3. Productivity Proof
 A_inverse = np.linalg.inv(A) # computing inverse matrix => (I-C)^-1
 print(pd.DataFrame(A_inverse, index=sectors, columns=sectors).round(3)) # all cells are positive
+
+#Part C code
+
+# C is the consumption matrix and d the baseline demand vector (in $billions)
+d_new = d.copy()
+d_new[1] = 0            # MIN final demand drops to 0
+d_new[2] = 60 * 1.40    # UTL final demand surges 40%
+x_new = np.linalg.solve(np.eye(10) - C, d_new)   # solves (I - C) x = d_new
+print(np.round(x_new, 2))
